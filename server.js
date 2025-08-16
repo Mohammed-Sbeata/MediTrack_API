@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require('cookie-parser');
 const server = express();
 const ApiError = require("./utils/apiError");
 const globalError = require("./middlewares/errorMiddleware");
@@ -8,9 +9,18 @@ const dbConnection = require("./config/database");
 const PORT = process.env.PORT || 8000;
 const path = require("path");
 
+
 dbConnection();
 
+server.use(cookieParser());
+
+//route
+const authRoute = require('./routes/Auth/auth')
+
+// Middlewares
 server.use(express.json());
+server.use('/Auth', authRoute)
+
 
 
 server.use((req, res, next) => {
