@@ -7,12 +7,15 @@ const dotenv = require("dotenv");
 dotenv.config({quiet: true});
 const dbConnection = require("./config/database");
 const PORT = process.env.PORT || 8000;
+const cors = require("cors");
 const path = require("path");
+
 
 
 dbConnection();
 
 server.use(cookieParser());
+server.use(cors());
 
 //route
 const authRoute = require('./routes/Auth/auth')

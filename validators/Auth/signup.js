@@ -1,5 +1,5 @@
 const validations = require('./validation')
-const validatorResult = require('../../middlewares/validator/validator')
+const validatorResult = require('../../middlewares/Validator/validator')
 
 exports.signupValidator = [
   validations.firstNameValidation,
