@@ -23,7 +23,7 @@ exports.signup = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
-      maxAge: 15 * 60 * 1000 
+      maxAge: 1440 * 60 * 1000 
     });
 
     res.status(201).json({

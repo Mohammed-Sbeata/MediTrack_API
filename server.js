@@ -16,10 +16,12 @@ server.use(cookieParser());
 
 //route
 const authRoute = require('./routes/Auth/auth')
+const mediRoute = require('./routes/Medicines/medicine')
 
 // Middlewares
 server.use(express.json());
 server.use('/Auth', authRoute)
+server.use('/Medi', mediRoute)
 
 
 
