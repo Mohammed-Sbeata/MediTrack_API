@@ -1,25 +1,20 @@
 const { body } = require('express-validator');
 const User = require('../../models/user');
+const moment = require('moment'); // npm install moment
 
-exports.firstNameValidation = body('first_name')
-  .notEmpty().withMessage('First Name is Required')
+
+exports.nameValidation = body('name')
+  .notEmpty().withMessage('Name is required')
   .trim()
-  .isLength({ max: 30 })
-  .withMessage('First Name must be less than 30 characters')
-  .matches(/^[a-zA-Z\u0600-\u06FF]+$/)
-  .withMessage('First Name can only contain letters');
-exports.lastNameValidation = body('last_name')
-  .notEmpty().withMessage('Last Name is Required')
-  .trim()
-  .isLength({ max: 30 })
-  .withMessage('Last Name must be less than 30 characters')
-  .matches(/^[a-zA-Z\u0600-\u06FF]+$/)
-  .withMessage('Last Name can only contain letters');
+  .isLength({ max: 50 })
+  .withMessage('Name must be less than 50 characters')
+  .matches(/^[a-zA-Z\u0600-\u06FF\s]+$/)
+  .withMessage('Name can only contain letters and spaces');
 
 exports.emailValidation = body('email')
-  .trim().notEmpty().withMessage('Email is Required')
-  .isEmail()
-  .withMessage('Please provide a valid email')
+  .trim()
+  .notEmpty().withMessage('Email is required')
+  .isEmail().withMessage('Please provide a valid email')
   .normalizeEmail()
   .custom(async (value) => {
     const user = await User.findOne({ email: value });
@@ -28,14 +23,23 @@ exports.emailValidation = body('email')
     }
   });
 
-exports.passwordValidation = body('password').notEmpty().withMessage('Password is Required')
+exports.passwordValidation = body('password')
+  .notEmpty().withMessage('Password is required')
   .isLength({ min: 8 })
   .withMessage('Password must be at least 8 characters')
   .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
-  .withMessage('Password must contain at least one uppercase, one lowercase, one number and one special character');
+  .withMessage('Password must contain at least one uppercase, one lowercase, one number, and one special character');
 
-exports.phoneValidation = body('phone')
-.notEmpty().withMessage('Phone Number is Required')
-.trim()
-.isMobilePhone()
-.withMessage('Please provide a valid phone number');
+  
+exports.birthValidation = body('birth')
+  .notEmpty().withMessage('Birth date is required')
+  .custom((value) => {
+    if (!moment(value, "DD-MM-YYYY", true).isValid()) {
+      throw new Error("Birth date must be in DD-MM-YYYY format");
+    }
+    return true;
+  });
+
+exports.genderValidation = body('gender')
+  .notEmpty().withMessage('Gender is required')
+  .isIn(['Male', 'Female']).withMessage('Gender must be either Male or Female');

@@ -1,20 +1,19 @@
 const User = require('../../models/user');
 const { generateToken } = require('../../config/jwt');
-const sendEmail = require('../Auth/email');
 
 // @desc    Signup user
 // @route   POST /api/auth/signup
 // @access  Public
 exports.signup = async (req, res) => {
-  const { first_name, last_name, email, password, phone} = req.body;
+  const { name, birth, email, password, gender} = req.body;
 
   try {
     const user = await User.create({
-      first_name,
-      last_name,
+      name,
+      birth,
+      gender,
       email,
-      password,
-      phone,
+      password
     });
 
     const token = generateToken(user._id);
