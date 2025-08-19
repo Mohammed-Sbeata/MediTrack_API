@@ -1,16 +1,16 @@
-### MediTrack_API
+# MediTrack_API
 
 ## Auth API – Backend
-# Overview
+### Overview
 This API provides authentication endpoints (signup, login, logout, password reset) for the backend service. Built with Node.js, Express, MongoDB, and JWT.
 
-# Setup
+### Setup
 ```
 git clone <https://github.com/Mohammed-Sbeata/MediTrack_API.git>
 npm install
 ```
 
-# Create .env file:
+### Create .env file:
 ```
 PORT=5000
 JWT_SECRET=
@@ -19,11 +19,11 @@ DB_URL=mongodb://localhost:27017/mediTrack
 NODE_ENV=production
  ```
 
-# Run server:
+### Run server:
 ```
 npm start 
 ```
-# User Model
+### User Model
 ```
 {
   name: String,        // required
@@ -34,7 +34,7 @@ npm start
   phone: String
 }
 ```
-# Security
+### Security
 - Passwords hashed with bcrypt
 
 - JWT-based authentication
