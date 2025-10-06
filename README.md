@@ -1,4 +1,4 @@
-# MediTrack_API
+# MediTrack_API.
 
 ## Auth API – Backend
 ### Overview
@@ -42,4 +42,5 @@ npm start
 - Input validation with express-validator
 
 - Tokens stored in HttpOnly cookies
+
 
